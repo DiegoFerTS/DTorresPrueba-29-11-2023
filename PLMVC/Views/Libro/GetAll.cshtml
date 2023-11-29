@@ -1,0 +1,50 @@
+﻿@model ML.Libro
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetAll</h2>
+
+<a class="btn btn-success" href="@Url.Action("Form", "Libro")">Registrar un libro</a>
+
+<br />
+
+<div class="text-center">Libros</div>
+
+<hr />
+
+@if (Model.Libros.Count > 0)
+{
+    <div>
+        <table class="table table-hover">
+            <thead class="table-dark text-center">
+            <th>Editar</th>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Autor</th>
+            <th>Cantidad</th>
+            <th>Publicado</th>
+            <th>Eliminar</th>
+            </thead>
+            <tbody class="text-center">
+
+                @foreach (ML.Libro libro in Model.Libros)
+                {
+                <td><a class="btn btn-success" href="@Url.Action("Form", "Libro", new {idLibro = libro.Id})">Editar</a></td>
+                <td>@libro.Id</td>
+                <td>@libro.Nombre</td>
+                <td>@libro.Autor</td>
+                <td>@libro.Cantidad</td>
+                <td>@libro.FechaPublicacion.ToString("dd-MM-yyyy")</td>
+                <td><a class="btn btn-danger" href="@Url.Action("Delete", "Libro", new {idLibro = libro.Id})">Borrar</a></td>
+            }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">No hay datos.</div>
+    }
+

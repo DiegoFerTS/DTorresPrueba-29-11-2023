@@ -1,0 +1,60 @@
+﻿@model ML.Libro
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Form</h2>
+
+@Html.ActionLink("Todos los libros", "GetAll", "Libro", new { area = "" }, new { @class = "btn btn-success" })
+<br />
+
+@if (Model.Informacion.Estatus && Model.Informacion.Mensaje != null && Model.Informacion.Mensaje != "")
+{
+    <div class="alert alert-success">@Model.Informacion.Mensaje</div>
+}
+else if (!Model.Informacion.Estatus && Model.Informacion.Mensaje != null && Model.Informacion.Mensaje != "")
+{
+    <div class="alert alert-danger">@Model.Informacion.Mensaje</div>
+}
+
+
+@using (Html.BeginForm("Form", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(Model => Model.Id, new { @class = "form-control" })
+
+    <div class="row">
+        <div class="col-6" style="margin-bottom: 15px;">
+            <label>Nombre:</label>
+            @Html.TextBoxFor(Model => Model.Nombre, new { @class = "form-control" })
+        </div>
+
+        <div class="col-6" style="margin-bottom: 15px;">
+            <label>Autor:</label>
+            @Html.TextBoxFor(Model => Model.Autor, new { @class = "form-control" })
+        </div>
+
+        <div class="col-6" style="margin-bottom: 15px;">
+            <label>Cantidad:</label>
+            @Html.TextBoxFor(Model => Model.Cantidad, new { @class = "form-control" })
+        </div>
+        <div class="col-6" style="margin-bottom: 15px;">
+            <label>Fecha publicacion:</label>
+            @Html.TextBoxFor(Model => Model.FechaPublicacion, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <br />
+
+    <center>
+        @if (Model.Id == 0 || Model.Id == null)
+        {
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-success">Actualizar</button>
+        }
+    </center>
+}
